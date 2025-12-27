@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
+import API_URL from '../../config';
 
-const socket = io('http://localhost:5000');
+// Initialize socket with dynamic URL
+const socket = io(API_URL);
 
 const ChatInterface = () => {
     const [messages, setMessages] = useState([]);
@@ -54,7 +56,7 @@ const ChatInterface = () => {
 
     const fetchHistory = async (id) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/conversations/${id}/messages`);
+            const res = await axios.get(`${API_URL}/api/conversations/${id}/messages`);
             setMessages(res.data);
         } catch (err) {
             console.error("Failed to load history", err);
